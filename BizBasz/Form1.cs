@@ -350,7 +350,7 @@ namespace BizBasz
             DoMouseClick();
             SendKeys.SendWait("{TAB}");
             SendKeys.SendWait("{TAB}");
-            SendKeys.SendWait(listView1.SelectedItems[0].SubItems[1].Text);
+            //SendKeys.SendWait(listView1.SelectedItems[0].SubItems[1].Text);
             SendKeys.SendWait("{TAB}");
             SendKeys.SendWait(tbProductName.Text);
             SendKeys.SendWait("{TAB}");

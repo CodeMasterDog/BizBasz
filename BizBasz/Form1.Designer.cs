@@ -239,6 +239,8 @@
             // 
             // cbGroupCode
             // 
+            this.cbGroupCode.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.cbGroupCode.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbGroupCode.DropDownWidth = 280;
             this.cbGroupCode.FormattingEnabled = true;
             this.cbGroupCode.Items.AddRange(new object[] {
@@ -261,7 +263,7 @@
             "144 - Üzemkörön kívüli berendezések, felsz., járművek"});
             this.cbGroupCode.Location = new System.Drawing.Point(146, 110);
             this.cbGroupCode.Name = "cbGroupCode";
-            this.cbGroupCode.Size = new System.Drawing.Size(203, 21);
+            this.cbGroupCode.Size = new System.Drawing.Size(309, 21);
             this.cbGroupCode.TabIndex = 20;
             // 
             // Form1

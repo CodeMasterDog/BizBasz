@@ -31,7 +31,7 @@
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.odt = new System.Windows.Forms.OpenFileDialog();
             this.tbPath = new System.Windows.Forms.TextBox();
-            this.btnCollect = new System.Windows.Forms.Button();
+            this.btnBizBasz = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
             this.btnNextGroup = new System.Windows.Forms.Button();
             this.lblCompliance = new System.Windows.Forms.Label();
@@ -44,6 +44,12 @@
             this.lblCustomerName = new System.Windows.Forms.Label();
             this.tbInvoiceId = new System.Windows.Forms.TextBox();
             this.lblInvoiceId = new System.Windows.Forms.Label();
+            this.tbAction = new System.Windows.Forms.TextBox();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.lblserial = new System.Windows.Forms.Label();
+            this.cbSerial = new System.Windows.Forms.ComboBox();
+            this.lblGroupCode = new System.Windows.Forms.Label();
+            this.cbGroupCode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnOpenFile
@@ -69,24 +75,25 @@
             this.tbPath.Size = new System.Drawing.Size(969, 20);
             this.tbPath.TabIndex = 1;
             // 
-            // btnCollect
+            // btnBizBasz
             // 
-            this.btnCollect.Location = new System.Drawing.Point(987, 105);
-            this.btnCollect.Name = "btnCollect";
-            this.btnCollect.Size = new System.Drawing.Size(75, 23);
-            this.btnCollect.TabIndex = 2;
-            this.btnCollect.Text = "button1";
-            this.btnCollect.UseVisualStyleBackColor = true;
+            this.btnBizBasz.Location = new System.Drawing.Point(1111, 69);
+            this.btnBizBasz.Name = "btnBizBasz";
+            this.btnBizBasz.Size = new System.Drawing.Size(75, 23);
+            this.btnBizBasz.TabIndex = 2;
+            this.btnBizBasz.Text = "BizBasz!!!";
+            this.btnBizBasz.UseVisualStyleBackColor = true;
+            this.btnBizBasz.Click += new System.EventHandler(this.btnCollect_Click);
             // 
             // listView1
             // 
             this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 171);
+            this.listView1.Location = new System.Drawing.Point(0, 166);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1156, 224);
+            this.listView1.Size = new System.Drawing.Size(1268, 176);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -96,7 +103,7 @@
             // 
             // btnNextGroup
             // 
-            this.btnNextGroup.Location = new System.Drawing.Point(987, 66);
+            this.btnNextGroup.Location = new System.Drawing.Point(1030, 69);
             this.btnNextGroup.Name = "btnNextGroup";
             this.btnNextGroup.Size = new System.Drawing.Size(75, 23);
             this.btnNextGroup.TabIndex = 4;
@@ -184,11 +191,90 @@
             this.lblInvoiceId.TabIndex = 13;
             this.lblInvoiceId.Text = "Számlaszám";
             // 
+            // tbAction
+            // 
+            this.tbAction.Location = new System.Drawing.Point(915, 69);
+            this.tbAction.Name = "tbAction";
+            this.tbAction.Size = new System.Drawing.Size(100, 20);
+            this.tbAction.TabIndex = 16;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Location = new System.Drawing.Point(912, 51);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(50, 15);
+            this.lblAction.TabIndex = 15;
+            this.lblAction.Text = "Művelet";
+            // 
+            // lblserial
+            // 
+            this.lblserial.AutoSize = true;
+            this.lblserial.Location = new System.Drawing.Point(12, 92);
+            this.lblserial.Name = "lblserial";
+            this.lblserial.Size = new System.Drawing.Size(49, 15);
+            this.lblserial.TabIndex = 17;
+            this.lblserial.Text = "Sorozat";
+            // 
+            // cbSerial
+            // 
+            this.cbSerial.FormattingEnabled = true;
+            this.cbSerial.Items.AddRange(new object[] {
+            "IM",
+            "TE",
+            "KE"});
+            this.cbSerial.Location = new System.Drawing.Point(15, 110);
+            this.cbSerial.Name = "cbSerial";
+            this.cbSerial.Size = new System.Drawing.Size(121, 21);
+            this.cbSerial.TabIndex = 18;
+            // 
+            // lblGroupCode
+            // 
+            this.lblGroupCode.AutoSize = true;
+            this.lblGroupCode.Location = new System.Drawing.Point(143, 92);
+            this.lblGroupCode.Name = "lblGroupCode";
+            this.lblGroupCode.Size = new System.Drawing.Size(65, 15);
+            this.lblGroupCode.TabIndex = 19;
+            this.lblGroupCode.Text = "Csopotkód";
+            // 
+            // cbGroupCode
+            // 
+            this.cbGroupCode.DropDownWidth = 280;
+            this.cbGroupCode.FormattingEnabled = true;
+            this.cbGroupCode.Items.AddRange(new object[] {
+            "111 - Alapítás-átszervezés aktivált értéke",
+            "112 - Kisérleti fejlesztés aktivált értéke",
+            "113 - Vagyoni értékű jogok",
+            "114 - Szellemi termékek",
+            "115 - Üzleti vagy cégérték",
+            "121 - Földterület",
+            "122 - Telek telkesítés",
+            "123 - Épületek, épületrészek, tulajdoni hányadok",
+            "124 - Egyéb építmények",
+            "125 - Üzemkörön kívüli ingatlanok, épületek",
+            "126 - Ingatlanokhoz kapcsolódó vagyoni értékű jogok",
+            "131 - Termelő gépek, berendezés, szerszámok, gyártóeszk",
+            "132 - Termelésben közvetlenül résztvevő járművek",
+            "141 - Üzemi (üzleti) gépek, berendezések, felszerelések",
+            "142 - Egyéb járművek",
+            "143 - Irodai igazgatási berendezések, felszerelések",
+            "144 - Üzemkörön kívüli berendezések, felsz., járművek"});
+            this.cbGroupCode.Location = new System.Drawing.Point(146, 110);
+            this.cbGroupCode.Name = "cbGroupCode";
+            this.cbGroupCode.Size = new System.Drawing.Size(203, 21);
+            this.cbGroupCode.TabIndex = 20;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1156, 395);
+            this.ClientSize = new System.Drawing.Size(1268, 342);
+            this.Controls.Add(this.lblGroupCode);
+            this.Controls.Add(this.cbGroupCode);
+            this.Controls.Add(this.lblserial);
+            this.Controls.Add(this.cbSerial);
+            this.Controls.Add(this.tbAction);
+            this.Controls.Add(this.lblAction);
             this.Controls.Add(this.tbInvoiceId);
             this.Controls.Add(this.lblInvoiceId);
             this.Controls.Add(this.tbCustomerName);
@@ -201,7 +287,7 @@
             this.Controls.Add(this.lblCompliance);
             this.Controls.Add(this.btnNextGroup);
             this.Controls.Add(this.listView1);
-            this.Controls.Add(this.btnCollect);
+            this.Controls.Add(this.btnBizBasz);
             this.Controls.Add(this.tbPath);
             this.Controls.Add(this.btnOpenFile);
             this.Name = "Form1";
@@ -217,7 +303,7 @@
         private System.Windows.Forms.Button btnOpenFile;
         private System.Windows.Forms.OpenFileDialog odt;
         private System.Windows.Forms.TextBox tbPath;
-        private System.Windows.Forms.Button btnCollect;
+        private System.Windows.Forms.Button btnBizBasz;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Button btnNextGroup;
         private System.Windows.Forms.Label lblCompliance;
@@ -230,6 +316,12 @@
         private System.Windows.Forms.Label lblCustomerName;
         private System.Windows.Forms.TextBox tbInvoiceId;
         private System.Windows.Forms.Label lblInvoiceId;
+        private System.Windows.Forms.TextBox tbAction;
+        private System.Windows.Forms.Label lblAction;
+        private System.Windows.Forms.Label lblserial;
+        private System.Windows.Forms.ComboBox cbSerial;
+        private System.Windows.Forms.Label lblGroupCode;
+        private System.Windows.Forms.ComboBox cbGroupCode;
     }
 }
 

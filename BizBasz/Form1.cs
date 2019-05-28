@@ -15,6 +15,9 @@ namespace BizBasz
     {
         private bool nextGroup;
         static readonly string columns;
+        private static bool mainWindowsClosed;
+
+        public static bool MainWindowsClosed { get => mainWindowsClosed; set => mainWindowsClosed = value; }
 
         delegate void UniversalVoidDelegate();
 
@@ -36,33 +39,37 @@ namespace BizBasz
             ControlInvoke(listView1, () => listView1.Items.Add("Test"));
         }
 
-
-
-        public void waddLvItem(string [] words)
-        {
-            ListViewItem lvi = new ListViewItem(words[0]);
-            for (int i = 1; i < words.Length; i++)
-            {
-                lvi.SubItems.Add(words[i]);
-            }
-            listView1.Items.Add(lvi);
-        }
-
         static Form1()
         {
             columns = $"Számlaszám;Kézi azonosító;Ügyfélkód;Ügyfél név;Telephely;Dátum;Teljesítés;Fizetési mód;Esedékes;Könyvelés;Áfa Dátum;Elsz. f. szám;Termék név;Tétel f. szám;Költséghely;Témaszám kód;Témaszám név;Pozíciószám;Deviza;Eladási érték;Engedmény;Nettó;Áfa;Bruttó;Áfa kulcs;Egységár;Mennyiség;Mennyiségi egység";
         }
+
         public Form1()
         {
             InitializeComponent();
+            this.FormClosing += Form1_FormClosing;
+
+            Thread mainThread = Thread.CurrentThread;
             odt.Multiselect = false;
             odt.Filter = "Text fájlok (*.txt)|*.txt|Pontosvesszővel tagolt fájlok (*.csv)|*.csv|Minden fájl (*.*)|*.*";
 
             string[] aColumn = Form1.columns.Split(';');
             foreach (string column in aColumn)
             {
-                listView1.Columns.Add(column);
+                ColumnHeader header = new ColumnHeader();
+                header.Text = column;
+                listView1.Columns.Add(header);
+                if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") || header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum"))
+                {
+                    header.Width = 0;
+                }
             }
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainWindowsClosed = true;
         }
 
         private void btnOpenFile_Click(object sender, EventArgs e)
@@ -71,6 +78,7 @@ namespace BizBasz
             if (odt.ShowDialog() == DialogResult.OK)
             {
                 tbPath.Text = odt.FileName;
+                btnOpenFile.Enabled = false;
 
 
                 new Thread(() =>
@@ -80,9 +88,8 @@ namespace BizBasz
                     System.IO.StreamReader file = new System.IO.StreamReader(odt.FileName, Encoding.GetEncoding(1252));
                     StringBuilder newFileContent = new StringBuilder();
 
-                    bool firstrun = true;
                     string prevInvoiceId = null;
-                    string invoiceId = null;
+
                     int counter = 0;
                     while ((line = file.ReadLine()) != null)
                     {
@@ -114,9 +121,13 @@ namespace BizBasz
                         {
                             while (!nextGroup)
                             {
-                                    Thread.Sleep(300);
+                                Thread.Sleep(300);
+                                if (MainWindowsClosed)
+                                {
+                                    return;
+                                }
                             }
-                           
+
 
                             if (nextGroup)
                             {
@@ -134,13 +145,6 @@ namespace BizBasz
                             }
                         }
                     }
-                    
-
-
-
-
-
-
                 }).Start();
 
 
@@ -171,7 +175,7 @@ namespace BizBasz
 
 
 
-                }
+            }
 
         }
 
@@ -179,6 +183,16 @@ namespace BizBasz
         {
             listView1.Items.Clear();
             nextGroup = true;
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
 
         }
     }

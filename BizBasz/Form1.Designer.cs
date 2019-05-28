@@ -52,10 +52,11 @@
             // 
             // tbPath
             // 
-            this.tbPath.Location = new System.Drawing.Point(93, 10);
+            this.tbPath.Enabled = false;
+            this.tbPath.Location = new System.Drawing.Point(93, 15);
             this.tbPath.Multiline = true;
             this.tbPath.Name = "tbPath";
-            this.tbPath.Size = new System.Drawing.Size(787, 25);
+            this.tbPath.Size = new System.Drawing.Size(969, 20);
             this.tbPath.TabIndex = 1;
             // 
             // btnCollect
@@ -82,7 +83,7 @@
             // 
             // btnNextGroup
             // 
-            this.btnNextGroup.Location = new System.Drawing.Point(702, 54);
+            this.btnNextGroup.Location = new System.Drawing.Point(987, 66);
             this.btnNextGroup.Name = "btnNextGroup";
             this.btnNextGroup.Size = new System.Drawing.Size(75, 23);
             this.btnNextGroup.TabIndex = 4;
@@ -102,6 +103,8 @@
             this.Controls.Add(this.btnOpenFile);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

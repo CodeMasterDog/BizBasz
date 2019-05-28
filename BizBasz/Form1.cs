@@ -147,8 +147,12 @@ namespace BizBasz
                                     lvi.SubItems.Add(words[i]);
                                 }
                                 listView1.Items.Add(lvi);
+                                if (listView1.Items.Count > 0)
+                                {
+                                    listView1.Items[0].Selected = true;
+                                }
+                                listView1.Select();
                                 });
-
                             }
                             else
                             {
@@ -173,6 +177,11 @@ namespace BizBasz
                                             lvi.SubItems.Add(words[i]);
                                         }
                                         listView1.Items.Add(lvi);
+                                        if (listView1.Items.Count > 0)
+                                        {
+                                            listView1.Items[0].Selected = true;
+                                        }
+                                        listView1.Select();
                                     });
                                 }
                             }
@@ -220,6 +229,8 @@ namespace BizBasz
                 tbCompliance.Text = listView1.SelectedItems[0].SubItems[6].Text;
                 tbNet.Text = listView1.SelectedItems[0].SubItems[21].Text;
                 tbProductName.Text = listView1.SelectedItems[0].SubItems[12].Text;
+                tbCustomerName.Text = listView1.SelectedItems[0].SubItems[3].Text;
+                tbInvoiceId.Text = listView1.SelectedItems[0].SubItems[0].Text;
             }
         }
 

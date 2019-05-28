@@ -40,6 +40,10 @@
             this.lnlNet = new System.Windows.Forms.Label();
             this.tbProductName = new System.Windows.Forms.TextBox();
             this.lblProductName = new System.Windows.Forms.Label();
+            this.tbCustomerName = new System.Windows.Forms.TextBox();
+            this.lblCustomerName = new System.Windows.Forms.Label();
+            this.tbInvoiceId = new System.Windows.Forms.TextBox();
+            this.lblInvoiceId = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnOpenFile
@@ -67,7 +71,7 @@
             // 
             // btnCollect
             // 
-            this.btnCollect.Location = new System.Drawing.Point(590, 63);
+            this.btnCollect.Location = new System.Drawing.Point(987, 105);
             this.btnCollect.Name = "btnCollect";
             this.btnCollect.Size = new System.Drawing.Size(75, 23);
             this.btnCollect.TabIndex = 2;
@@ -103,7 +107,7 @@
             // lblCompliance
             // 
             this.lblCompliance.AutoSize = true;
-            this.lblCompliance.Location = new System.Drawing.Point(9, 48);
+            this.lblCompliance.Location = new System.Drawing.Point(143, 51);
             this.lblCompliance.Name = "lblCompliance";
             this.lblCompliance.Size = new System.Drawing.Size(59, 15);
             this.lblCompliance.TabIndex = 5;
@@ -111,14 +115,14 @@
             // 
             // tbCompliance
             // 
-            this.tbCompliance.Location = new System.Drawing.Point(12, 66);
+            this.tbCompliance.Location = new System.Drawing.Point(143, 69);
             this.tbCompliance.Name = "tbCompliance";
             this.tbCompliance.Size = new System.Drawing.Size(100, 20);
             this.tbCompliance.TabIndex = 6;
             // 
             // tbNet
             // 
-            this.tbNet.Location = new System.Drawing.Point(118, 66);
+            this.tbNet.Location = new System.Drawing.Point(249, 69);
             this.tbNet.Name = "tbNet";
             this.tbNet.Size = new System.Drawing.Size(100, 20);
             this.tbNet.TabIndex = 8;
@@ -126,7 +130,7 @@
             // lnlNet
             // 
             this.lnlNet.AutoSize = true;
-            this.lnlNet.Location = new System.Drawing.Point(115, 48);
+            this.lnlNet.Location = new System.Drawing.Point(246, 51);
             this.lnlNet.Name = "lnlNet";
             this.lnlNet.Size = new System.Drawing.Size(36, 15);
             this.lnlNet.TabIndex = 7;
@@ -134,7 +138,7 @@
             // 
             // tbProductName
             // 
-            this.tbProductName.Location = new System.Drawing.Point(224, 66);
+            this.tbProductName.Location = new System.Drawing.Point(635, 69);
             this.tbProductName.Name = "tbProductName";
             this.tbProductName.Size = new System.Drawing.Size(274, 20);
             this.tbProductName.TabIndex = 10;
@@ -142,17 +146,53 @@
             // lblProductName
             // 
             this.lblProductName.AutoSize = true;
-            this.lblProductName.Location = new System.Drawing.Point(221, 48);
+            this.lblProductName.Location = new System.Drawing.Point(632, 51);
             this.lblProductName.Name = "lblProductName";
             this.lblProductName.Size = new System.Drawing.Size(71, 15);
             this.lblProductName.TabIndex = 9;
             this.lblProductName.Text = "Termék név";
+            // 
+            // tbCustomerName
+            // 
+            this.tbCustomerName.Location = new System.Drawing.Point(355, 69);
+            this.tbCustomerName.Name = "tbCustomerName";
+            this.tbCustomerName.Size = new System.Drawing.Size(274, 20);
+            this.tbCustomerName.TabIndex = 12;
+            // 
+            // lblCustomerName
+            // 
+            this.lblCustomerName.AutoSize = true;
+            this.lblCustomerName.Location = new System.Drawing.Point(352, 51);
+            this.lblCustomerName.Name = "lblCustomerName";
+            this.lblCustomerName.Size = new System.Drawing.Size(63, 15);
+            this.lblCustomerName.TabIndex = 11;
+            this.lblCustomerName.Text = "Ügyfél név";
+            // 
+            // tbInvoiceId
+            // 
+            this.tbInvoiceId.Location = new System.Drawing.Point(15, 69);
+            this.tbInvoiceId.Name = "tbInvoiceId";
+            this.tbInvoiceId.Size = new System.Drawing.Size(122, 20);
+            this.tbInvoiceId.TabIndex = 14;
+            // 
+            // lblInvoiceId
+            // 
+            this.lblInvoiceId.AutoSize = true;
+            this.lblInvoiceId.Location = new System.Drawing.Point(12, 51);
+            this.lblInvoiceId.Name = "lblInvoiceId";
+            this.lblInvoiceId.Size = new System.Drawing.Size(79, 15);
+            this.lblInvoiceId.TabIndex = 13;
+            this.lblInvoiceId.Text = "Számlaszám";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1156, 395);
+            this.Controls.Add(this.tbInvoiceId);
+            this.Controls.Add(this.lblInvoiceId);
+            this.Controls.Add(this.tbCustomerName);
+            this.Controls.Add(this.lblCustomerName);
             this.Controls.Add(this.tbProductName);
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.tbNet);
@@ -186,6 +226,10 @@
         private System.Windows.Forms.Label lnlNet;
         private System.Windows.Forms.TextBox tbProductName;
         private System.Windows.Forms.Label lblProductName;
+        private System.Windows.Forms.TextBox tbCustomerName;
+        private System.Windows.Forms.Label lblCustomerName;
+        private System.Windows.Forms.TextBox tbInvoiceId;
+        private System.Windows.Forms.Label lblInvoiceId;
     }
 }
 

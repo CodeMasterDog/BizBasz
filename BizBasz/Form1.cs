@@ -16,7 +16,9 @@ namespace BizBasz
         private bool nextGroup;
         static readonly string columns;
         private static bool mainWindowsClosed;
-      
+        private ListViewColumnSorter lvwColumnSorter;
+        private static bool sortingDisabled;
+
 
         public static bool MainWindowsClosed { get => mainWindowsClosed; set => mainWindowsClosed = value; }
 
@@ -48,7 +50,9 @@ namespace BizBasz
         public Form1()
         {
             InitializeComponent();
-           
+
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.listView1.ListViewItemSorter = lvwColumnSorter;
             this.FormClosing += Form1_FormClosing;
             listView1.ColumnClick += ListView1_ColumnClick;
 
@@ -61,12 +65,16 @@ namespace BizBasz
             {
                 ColumnHeader header = new ColumnHeader();
                 header.Text = column;
+                header.Width = -2;
                 listView1.Columns.Add(header);
                 if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") || header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum") || header.Text.Equals("Elsz. f. szám") || header.Text.Equals("Tétel f. szám") || header.Text.Equals("Költséghely") || header.Text.Equals("Pozíciószám") || header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény"))
                 {
                     header.Width = 0;
                 }  
             }
+
+
+
         }
 
         private void ListView1_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -172,12 +180,21 @@ namespace BizBasz
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ColumnHeader columnheader;// Used for creating column headers.
+            ListViewItem listviewitem;// Used for creating listview items.
 
-        }
+            // Ensure that the view is set to show details.
+            listView1.View = View.Details;
+            ColumnClickEventArgs args = new ColumnClickEventArgs(21);
+            listView1_ColumnClick_1(this, args);
+            listView1_ColumnClick_1(this, args);
+            sortingDisabled = true;
 
-        private void Form1_Shown(object sender, EventArgs e)
-        {
-
+            //// Loop through and size each column header to fit the column header text.
+            //foreach (ColumnHeader ch in this.listView1.Columns)
+            //{
+            //    ch.Width = -2;
+            //}
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,9 +207,34 @@ namespace BizBasz
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void listView1_ColumnClick_1(object sender, ColumnClickEventArgs e)
         {
-            listView1.Sort();
+            if (!sortingDisabled)
+            {
+                // Determine if clicked column is already the column that is being sorted.
+                if (e.Column == lvwColumnSorter.SortColumn)
+                {
+                    // Reverse the current sort direction for this column.
+                    if (lvwColumnSorter.Order == SortOrder.Ascending)
+                    {
+                        lvwColumnSorter.Order = SortOrder.Descending;
+                    }
+                    else
+                    {
+                        lvwColumnSorter.Order = SortOrder.Ascending;
+                    }
+                }
+                else
+                {
+                    // Set the column number that is to be sorted; default to ascending.
+                    lvwColumnSorter.SortColumn = e.Column;
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+
+                // Perform the sort with these new sort options.
+                this.listView1.Sort();
+            }
         }
     }
 }

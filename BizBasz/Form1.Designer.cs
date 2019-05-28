@@ -40,7 +40,6 @@
             this.lnlNet = new System.Windows.Forms.Label();
             this.tbProductName = new System.Windows.Forms.TextBox();
             this.lblProductName = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnOpenFile
@@ -68,7 +67,7 @@
             // 
             // btnCollect
             // 
-            this.btnCollect.Location = new System.Drawing.Point(12, 420);
+            this.btnCollect.Location = new System.Drawing.Point(590, 63);
             this.btnCollect.Name = "btnCollect";
             this.btnCollect.Size = new System.Drawing.Size(75, 23);
             this.btnCollect.TabIndex = 2;
@@ -80,14 +79,15 @@
             this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 206);
+            this.listView1.Location = new System.Drawing.Point(0, 171);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1074, 189);
+            this.listView1.Size = new System.Drawing.Size(1074, 224);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick_1);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // btnNextGroup
@@ -136,7 +136,7 @@
             // 
             this.tbProductName.Location = new System.Drawing.Point(224, 66);
             this.tbProductName.Name = "tbProductName";
-            this.tbProductName.Size = new System.Drawing.Size(100, 20);
+            this.tbProductName.Size = new System.Drawing.Size(274, 20);
             this.tbProductName.TabIndex = 10;
             // 
             // lblProductName
@@ -148,22 +148,11 @@
             this.lblProductName.TabIndex = 9;
             this.lblProductName.Text = "Termék név";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(508, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1074, 395);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.tbProductName);
             this.Controls.Add(this.lblProductName);
             this.Controls.Add(this.tbNet);
@@ -178,7 +167,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,7 +186,6 @@
         private System.Windows.Forms.Label lnlNet;
         private System.Windows.Forms.TextBox tbProductName;
         private System.Windows.Forms.Label lblProductName;
-        private System.Windows.Forms.Button button1;
     }
 }
 

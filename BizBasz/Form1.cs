@@ -19,7 +19,6 @@ namespace BizBasz
         private ListViewColumnSorter lvwColumnSorter;
         private static bool sortingDisabled;
 
-
         public static bool MainWindowsClosed { get => mainWindowsClosed; set => mainWindowsClosed = value; }
 
         delegate void UniversalVoidDelegate();
@@ -65,14 +64,31 @@ namespace BizBasz
             {
                 ColumnHeader header = new ColumnHeader();
                 header.Text = column;
-                header.Width = -2;
+                if (header.Text.Equals("Deviza") || header.Text.Equals("Mennyiség") || header.Text.Equals("Mennyiségi egység"))
+                {
+                    header.Width = 80;
+                }
+                else
+                {
+                    header.Width = 150;
+                }
+
                 listView1.Columns.Add(header);
-                if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") || header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum") || header.Text.Equals("Elsz. f. szám") || header.Text.Equals("Tétel f. szám") || header.Text.Equals("Költséghely") || header.Text.Equals("Pozíciószám") || header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény"))
+                if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") ||
+                    header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum") || 
+                    header.Text.Equals("Elsz. f. szám") || header.Text.Equals("Tétel f. szám") ||
+                    header.Text.Equals("Költséghely") || header.Text.Equals("Pozíciószám") ||
+                    header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény") ||
+                    header.Text.Equals("Dátum") || header.Text.Equals("Könyvelés") ||
+                    header.Text.Equals("Fizetési mód") || header.Text.Equals("Témaszám kód") ||
+                    header.Text.Equals("Témaszám név") || header.Text.Equals("Áfa") ||
+                    header.Text.Equals("Bruttó") || header.Text.Equals("Áfa kulcs") ||
+                    header.Text.Equals("Kézi azonosító"))
                 {
                     header.Width = 0;
                 }  
             }
-
+            
 
 
         }
@@ -165,7 +181,7 @@ namespace BizBasz
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message);
-                        btnOpenFile.Enabled = true;
+                        ControlInvoke(btnOpenFile, () => btnOpenFile.Enabled = true);
                     }
                 }).Start();
             }

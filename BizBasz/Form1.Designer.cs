@@ -116,7 +116,7 @@
             this.lblCompliance.AutoSize = true;
             this.lblCompliance.Location = new System.Drawing.Point(143, 51);
             this.lblCompliance.Name = "lblCompliance";
-            this.lblCompliance.Size = new System.Drawing.Size(59, 15);
+            this.lblCompliance.Size = new System.Drawing.Size(53, 13);
             this.lblCompliance.TabIndex = 5;
             this.lblCompliance.Text = "Teljesítés";
             // 
@@ -139,7 +139,7 @@
             this.lnlNet.AutoSize = true;
             this.lnlNet.Location = new System.Drawing.Point(246, 51);
             this.lnlNet.Name = "lnlNet";
-            this.lnlNet.Size = new System.Drawing.Size(36, 15);
+            this.lnlNet.Size = new System.Drawing.Size(33, 13);
             this.lnlNet.TabIndex = 7;
             this.lnlNet.Text = "Nettó";
             // 
@@ -149,13 +149,14 @@
             this.tbProductName.Name = "tbProductName";
             this.tbProductName.Size = new System.Drawing.Size(274, 20);
             this.tbProductName.TabIndex = 10;
+            this.tbProductName.TextChanged += new System.EventHandler(this.tbProductName_TextChanged);
             // 
             // lblProductName
             // 
             this.lblProductName.AutoSize = true;
             this.lblProductName.Location = new System.Drawing.Point(632, 51);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(71, 15);
+            this.lblProductName.Size = new System.Drawing.Size(64, 13);
             this.lblProductName.TabIndex = 9;
             this.lblProductName.Text = "Termék név";
             // 
@@ -171,7 +172,7 @@
             this.lblCustomerName.AutoSize = true;
             this.lblCustomerName.Location = new System.Drawing.Point(352, 51);
             this.lblCustomerName.Name = "lblCustomerName";
-            this.lblCustomerName.Size = new System.Drawing.Size(63, 15);
+            this.lblCustomerName.Size = new System.Drawing.Size(58, 13);
             this.lblCustomerName.TabIndex = 11;
             this.lblCustomerName.Text = "Ügyfél név";
             // 
@@ -187,7 +188,7 @@
             this.lblInvoiceId.AutoSize = true;
             this.lblInvoiceId.Location = new System.Drawing.Point(12, 51);
             this.lblInvoiceId.Name = "lblInvoiceId";
-            this.lblInvoiceId.Size = new System.Drawing.Size(79, 15);
+            this.lblInvoiceId.Size = new System.Drawing.Size(65, 13);
             this.lblInvoiceId.TabIndex = 13;
             this.lblInvoiceId.Text = "Számlaszám";
             // 
@@ -203,7 +204,7 @@
             this.lblAction.AutoSize = true;
             this.lblAction.Location = new System.Drawing.Point(912, 51);
             this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(50, 15);
+            this.lblAction.Size = new System.Drawing.Size(45, 13);
             this.lblAction.TabIndex = 15;
             this.lblAction.Text = "Művelet";
             // 
@@ -212,7 +213,7 @@
             this.lblserial.AutoSize = true;
             this.lblserial.Location = new System.Drawing.Point(12, 92);
             this.lblserial.Name = "lblserial";
-            this.lblserial.Size = new System.Drawing.Size(49, 15);
+            this.lblserial.Size = new System.Drawing.Size(43, 13);
             this.lblserial.TabIndex = 17;
             this.lblserial.Text = "Sorozat";
             // 
@@ -233,7 +234,7 @@
             this.lblGroupCode.AutoSize = true;
             this.lblGroupCode.Location = new System.Drawing.Point(143, 92);
             this.lblGroupCode.Name = "lblGroupCode";
-            this.lblGroupCode.Size = new System.Drawing.Size(65, 15);
+            this.lblGroupCode.Size = new System.Drawing.Size(58, 13);
             this.lblGroupCode.TabIndex = 19;
             this.lblGroupCode.Text = "Csopotkód";
             // 

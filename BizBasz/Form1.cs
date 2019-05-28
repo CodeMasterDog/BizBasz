@@ -64,6 +64,18 @@ namespace BizBasz
         private ListViewColumnSorter lvwColumnSorter;
         private static bool sortingDisabled;
 
+        public static void ChangeTextColorIfTooLong(TextBox tb, int maxlenght)
+        {
+            if (tb.TextLength > maxlenght)
+            {
+                tb.ForeColor = Color.Red;
+            }
+            else
+            {
+                tb.ForeColor = Color.Black;
+            }
+        }
+
         public static bool MainWindowsClosed { get => mainWindowsClosed; set => mainWindowsClosed = value; }
 
         delegate void UniversalVoidDelegate();
@@ -273,7 +285,9 @@ namespace BizBasz
             {
                 tbCompliance.Text = listView1.SelectedItems[0].SubItems[6].Text;
                 tbNet.Text = listView1.SelectedItems[0].SubItems[21].Text;
-                tbProductName.Text = listView1.SelectedItems[0].SubItems[12].Text + " (" + listView1.SelectedItems[0].SubItems[26].Text + listView1.SelectedItems[0].SubItems[27].Text + ")";
+                tbProductName.Text = listView1.SelectedItems[0].SubItems[12].Text + " (" + listView1.SelectedItems[0].SubItems[26].Text + " " + listView1.SelectedItems[0].SubItems[27].Text + ")";
+                ChangeTextColorIfTooLong(tbProductName, 50);
+
                 tbCustomerName.Text = listView1.SelectedItems[0].SubItems[3].Text;
                 tbInvoiceId.Text = listView1.SelectedItems[0].SubItems[0].Text;
                 tbAction.Text = listView1.SelectedItems[0].SubItems[28].Text;
@@ -372,6 +386,11 @@ namespace BizBasz
 
 
             }
+        }
+
+        private void tbProductName_TextChanged(object sender, EventArgs e)
+        {
+            ChangeTextColorIfTooLong(sender as TextBox, 50);
         }
     }
 }

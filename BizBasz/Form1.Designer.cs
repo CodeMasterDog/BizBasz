@@ -51,6 +51,12 @@
             this.lblGroupCode = new System.Windows.Forms.Label();
             this.cbGroupCode = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblMsg = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lblSave = new System.Windows.Forms.Button();
+            this.lblItemCount = new System.Windows.Forms.Label();
+            this.cbAct = new System.Windows.Forms.ComboBox();
+            this.lblAct = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,11 +288,77 @@
             this.panel1.Size = new System.Drawing.Size(1278, 136);
             this.panel1.TabIndex = 21;
             // 
+            // lblMsg
+            // 
+            this.lblMsg.AutoSize = true;
+            this.lblMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.30189F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblMsg.ForeColor = System.Drawing.Color.Red;
+            this.lblMsg.Location = new System.Drawing.Point(1068, 20);
+            this.lblMsg.Name = "lblMsg";
+            this.lblMsg.Size = new System.Drawing.Size(0, 29);
+            this.lblMsg.TabIndex = 22;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1030, 108);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 23;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblSave
+            // 
+            this.lblSave.Location = new System.Drawing.Point(1192, 69);
+            this.lblSave.Name = "lblSave";
+            this.lblSave.Size = new System.Drawing.Size(75, 23);
+            this.lblSave.TabIndex = 24;
+            this.lblSave.Text = "Rögzítés";
+            this.lblSave.UseVisualStyleBackColor = true;
+            this.lblSave.Click += new System.EventHandler(this.lblSave_Click);
+            // 
+            // lblItemCount
+            // 
+            this.lblItemCount.AutoSize = true;
+            this.lblItemCount.Location = new System.Drawing.Point(912, 119);
+            this.lblItemCount.Name = "lblItemCount";
+            this.lblItemCount.Size = new System.Drawing.Size(41, 15);
+            this.lblItemCount.TabIndex = 25;
+            this.lblItemCount.Text = "label1";
+            // 
+            // cbAct
+            // 
+            this.cbAct.FormattingEnabled = true;
+            this.cbAct.Items.AddRange(new object[] {
+            "Aktiválás",
+            "Bővítés"});
+            this.cbAct.Location = new System.Drawing.Point(461, 110);
+            this.cbAct.Name = "cbAct";
+            this.cbAct.Size = new System.Drawing.Size(168, 21);
+            this.cbAct.TabIndex = 26;
+            // 
+            // lblAct
+            // 
+            this.lblAct.AutoSize = true;
+            this.lblAct.Location = new System.Drawing.Point(461, 92);
+            this.lblAct.Name = "lblAct";
+            this.lblAct.Size = new System.Drawing.Size(126, 15);
+            this.lblAct.TabIndex = 27;
+            this.lblAct.Text = "Aktiválás / Ráaktiválás";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1302, 285);
+            this.Controls.Add(this.lblAct);
+            this.Controls.Add(this.cbAct);
+            this.Controls.Add(this.lblItemCount);
+            this.Controls.Add(this.lblSave);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblGroupCode);
             this.Controls.Add(this.cbGroupCode);
@@ -342,6 +414,12 @@
         private System.Windows.Forms.Label lblGroupCode;
         private System.Windows.Forms.ComboBox cbGroupCode;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblMsg;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button lblSave;
+        private System.Windows.Forms.Label lblItemCount;
+        private System.Windows.Forms.ComboBox cbAct;
+        private System.Windows.Forms.Label lblAct;
     }
 }
 

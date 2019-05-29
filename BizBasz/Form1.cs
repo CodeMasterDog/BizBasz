@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Runtime.InteropServices;
+using System.Timers;
+using System.IO;
 
 namespace BizBasz
 {
@@ -180,6 +182,7 @@ namespace BizBasz
                     listView1.Items[0].Selected = true;
                 }
                 listView1.Select();
+                changelblItemCount();
             });
         }
         //Universal delegate
@@ -284,7 +287,16 @@ namespace BizBasz
                 tbCustomerName.Text = listView1.SelectedItems[0].SubItems[3].Text;
                 tbInvoiceId.Text = listView1.SelectedItems[0].SubItems[0].Text;
                 tbAction.Text = listView1.SelectedItems[0].SubItems[28].Text;
+                if (listView1.SelectedItems[0].Index > 0)
+                {
+                    cbAct.SelectedIndex = 1;
+                }
+                else
+                {
+                    cbAct.SelectedIndex = 0;
+                }
             }
+            changelblItemCount();
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -318,14 +330,14 @@ namespace BizBasz
 
         private void btnBizBasz_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(cbSerial.Text) || string.IsNullOrWhiteSpace(cbGroupCode.Text))
+            if ((string.IsNullOrWhiteSpace(cbSerial.Text) || string.IsNullOrWhiteSpace(cbGroupCode.Text)) && cbAct.SelectedIndex == 0)
             {
                 MessageBox.Show("Nincs Kiválasztva sorozat és/vagy csoportkód!");
             }
             else
             {
-                if ((Double.Parse(tbNet.Text) > 100000 && cbSerial.SelectedIndex == 2) ||
-                   ((Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 0) || (Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 1)))
+                if (cbAct.SelectedIndex == 0 && ((Double.Parse(tbNet.Text) > 100000 && cbSerial.SelectedIndex == 2) ||
+                   ((Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 0) || (Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 1))))
                 {
                     DialogResult dialogResult = MessageBox.Show($"Biztos, hogy a sorozat {cbSerial.Text}?", "Kérdés", MessageBoxButtons.YesNo);
 
@@ -340,60 +352,246 @@ namespace BizBasz
                 Rectangle rect;
                 IntPtr hwnd = GetForegroundWindow();
                 GetWindowRect(hwnd, out rect);
-                //Sorozat lenyitás
-                Cursor.Position = new Point((int)(rect.X + 418 * Dpi), (int)(rect.Y + 191 * Dpi));
-                DoMouseClick();
-                Thread.Sleep(300);
 
-                //Sorozat kiválasztás
-                int y = 0;
-                switch (cbSerial.SelectedIndex)
+                if (cbAct.SelectedIndex == 0) //új tétel Aktiválás
                 {
-                    case 0:
-                        y = 22;
-                        break;
-                    case 1:
-                        y = 38;
-                        break;
-                    case 2:
-                        y = 52;
-                        break;
+                    //Sorozat lenyitás
+                    Cursor.Position = new Point((int)(rect.X + 418 * Dpi), (int)(rect.Y + 191 * Dpi));
+                    DoMouseClick();
+                    Thread.Sleep(300);
+
+                    //Sorozat kiválasztás
+                    int y = 0;
+                    switch (cbSerial.SelectedIndex)
+                    {
+                        case 0:
+                            y = 22;
+                            break;
+                        case 1:
+                            y = 38;
+                            break;
+                        case 2:
+                            y = 52;
+                            break;
+                    }
+                    Cursor.Position = new Point((int)(Cursor.Position.X * Dpi), (int)(Cursor.Position.Y + y * Dpi));
+                    DoMouseClick();
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    //SendKeys.SendWait(listView1.SelectedItems[0].SubItems[1].Text);
+                    SendKeys.SendWait("{TAB}");
+                    //Product name
+                    SendKeys.SendWait(tbProductName.Text);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    //Quantity unit
+                    SendKeys.SendWait("db");
+                    SendKeys.SendWait("{TAB}");
+                    //Groupcode
+                    SendKeys.SendWait(cbGroupCode.Text.Substring(0, 3));
+                    //Event tab
+                    Cursor.Position = new Point((int)(rect.X + 293 * Dpi), (int)(rect.Y + 168 * Dpi));
+                    DoMouseClick();
+                    Thread.Sleep(300);
+                    //More event info
+                    Cursor.Position = new Point((int)(rect.X + 293 + 88 * Dpi), (int)(rect.Y + 168 * Dpi));
+                    DoMouseClick();
+                    Thread.Sleep(300);
+                    //Point to date, select
+                    Cursor.Position = new Point((int)(rect.X + 526 * Dpi), (int)(rect.Y + 296 * Dpi));
+                    DoMouseClick();
+                    DoMouseClick();
+                    //Enter compliance date
+                    SendKeys.SendWait(tbCompliance.Text);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    //Szöveg
+                    SendKeys.SendWait(tbProductName.Text);
+                    SendKeys.SendWait("{TAB}");
+                    //fellelési hely
+                    SendKeys.SendWait("100");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    //általános fül bruttó érték
+                    SendKeys.SendWait(tbNet.Text);
+                    //Kapcsolódó bizonylatok fül
+                    Cursor.Position = new Point((int)(rect.X + 460 * Dpi), (int)(rect.Y + 252 * Dpi));
+                    DoMouseClick();
+                    Thread.Sleep(300);
+                    //Thread.Sleep(300);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}"); // megnyílik az új bizonylat felviteli sor, de még nem a szlaszám az aktív
+                    SendKeys.SendWait("{TAB}"); //ekkor lehet beírni a bizonylatszámot
+                    SendKeys.SendWait(tbInvoiceId.Text);
+                    Thread.Sleep(300);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait(tbNet.Text);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("0");
+                    //ha kisértékű
+                    if (cbSerial.SelectedIndex == 2)
+                    {
+                        Cursor.Position = new Point((int)(rect.X + 420 * Dpi), (int)(rect.Y + 170 * Dpi));
+                        DoMouseClick();
+                        Thread.Sleep(300);
+                        //sztv leírás 100%
+                        Cursor.Position = new Point((int)(rect.X + 492), (int)(rect.Y + 273));
+                        DoMouseClick();
+                        DoMouseClick();
+                        SendKeys.SendWait("100");
+
+                        //atv leírás 100%
+                        Cursor.Position = new Point((int)(rect.X + 492), (int)(rect.Y + 411));
+                        DoMouseClick();
+                        DoMouseClick();
+                        SendKeys.SendWait("100");
+                    }
                 }
-                Cursor.Position = new Point((int)(Cursor.Position.X * Dpi), (int)(Cursor.Position.Y + y * Dpi));
-                DoMouseClick();
-                SendKeys.SendWait("{TAB}");
-                SendKeys.SendWait("{TAB}");
-                //SendKeys.SendWait(listView1.SelectedItems[0].SubItems[1].Text);
-                SendKeys.SendWait("{TAB}");
-                //Product name
-                SendKeys.SendWait(tbProductName.Text);
-                SendKeys.SendWait("{TAB}");
-                SendKeys.SendWait("{TAB}");
-                //Quantity unit
-                SendKeys.SendWait("db");
-                SendKeys.SendWait("{TAB}");
-                //Groupcode
-                SendKeys.SendWait(cbGroupCode.Text.Substring(0, 3));
-                //Event tab
-                Cursor.Position = new Point((int)(rect.X + 293 * Dpi), (int)(rect.Y + 168 * Dpi));
-                DoMouseClick();
-                Thread.Sleep(300);
-                //More event info
-                Cursor.Position = new Point((int)(rect.X + 293 + 88 * Dpi), (int)(rect.Y + 168 * Dpi));
-                DoMouseClick();
-                Thread.Sleep(300);
-                //Point to date, select
-                Cursor.Position = new Point((int)(rect.X + 526 * Dpi), (int)(rect.Y + 296 * Dpi));
-                DoMouseClick();
-                DoMouseClick();
-                //Enter compliance date
-                SendKeys.SendWait(tbCompliance.Text);
+                else
+                {
+                    //új bővítési biz Ctrl + B //csak módosítás
+                    Cursor.Position = new Point((int)(rect.X + 378 * Dpi), (int)(rect.Y + 168 * Dpi)); //esemény fül
+                    DoMouseClick();
+                    Thread.Sleep(300);
+                    SendKeys.SendWait("^b");
+                    Thread.Sleep(300);
+                    SendKeys.SendWait(tbCompliance.Text); //teljesítés
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait(tbProductName.Text); //szöveg
+                    //fellelési hely
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("100");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    //bt értékváltozás
+                    SendKeys.SendWait(tbNet.Text);
+                    SendKeys.SendWait("{TAB}");
+                    //kapcsolódó bizonylatok
+                    Cursor.Position = new Point((int)(rect.X + 466 * Dpi), (int)(rect.Y + 254 * Dpi));
+                    DoMouseClick();
+                    Thread.Sleep(300);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("{TAB}"); // új bizonylat sor
+                    string subInvoice = $"{tbInvoiceId.Text}/{(listView1.SelectedItems[0].Index + 1).ToString()}";
+                    SendKeys.SendWait(subInvoice);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait(tbNet.Text);
+                    SendKeys.SendWait("{TAB}");
+                    SendKeys.SendWait("0");
+
+                }
+
+
+
             }
         }
 
         private void tbProductName_TextChanged(object sender, EventArgs e)
         {
             ChangeTextColorIfTooLong(sender as TextBox, 50);
+        }
+
+        private void warningMsg(string msg, Label lbl, bool exit)
+        {
+            System.Timers.Timer timer = new System.Timers.Timer(300);
+            lbl.Text = msg;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
+            if (exit)
+            {
+                timer.Start();
+            }
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (lblMsg.ForeColor == Color.Red)
+            {
+                lblMsg.ForeColor = Color.Black;
+            }
+            else
+            {
+                lblMsg.ForeColor = Color.Red;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            warningMsg("Hiba", lblMsg, true);
+            new Thread(() =>
+            {
+
+                for (int i = 0; i < 900000000; i++)
+                {
+
+                }
+                ControlInvoke(lblMsg, () =>
+                {
+                    warningMsg(string.Empty, lblMsg, true);
+                });
+            }
+                ).Start();
+
+        }
+
+        private void logItems()
+        {
+            try
+            {
+                if (!File.Exists(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName)))
+                {
+                    using (StreamWriter sw = new StreamWriter(File.Open(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName), FileMode.Create), Encoding.UTF8)) ;
+                }
+                using (StreamWriter sw = File.AppendText(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName)))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    int sItemcount = listView1.SelectedItems[0].SubItems.Count;
+                    for (int i = 0; i < sItemcount; i++)
+                    {
+                        sb.Append(listView1.SelectedItems[0].SubItems[i].Text + ";");
+                    }
+                    sw.WriteLine(sb.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void lblSave_Click(object sender, EventArgs e)
+        {
+            logItems();
+            SendKeys.SendWait("%{TAB}");
+            Thread.Sleep(300);
+            //CTRL + R //Serpa rögzítés
+            SendKeys.SendWait("^r");
+
+        }
+
+        private void changelblItemCount()
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                lblItemCount.Text = "Items: " + listView1.Items.Count.ToString() + " Selected item idx: " + listView1.SelectedItems[0].Index;
+            }
+            else
+            {
+                lblItemCount.Text = "0";
+            }
+
         }
     }
 }

@@ -14,6 +14,84 @@ namespace BizBasz
 {
     public partial class Form1 : Form
     {
+        static readonly string columns;
+        public static bool MainWindowsClosed { get; set; }
+        private static bool sortingDisabled;
+        private static readonly float Dpi;
+
+        private bool nextGroup;
+        private ListViewColumnSorter lvwColumnSorter;
+
+        static Form1()
+        {
+            using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                IntPtr hwnd = GetForegroundWindow();
+                Form1.Dpi = GetDisplayScaleFactor(hwnd);
+            }
+            columns = $"Számlaszám;Kézi azonosító;Ügyfélkód;Ügyfél név;Telephely;Dátum;Teljesítés;Fizetési mód;Esedékes;Könyvelés;Áfa Dátum;Elsz. f. szám;Termék név;Tétel f. szám;Költséghely;Témaszám kód;Témaszám név;Pozíciószám;Deviza;Eladási érték;Engedmény;Nettó;Áfa;Bruttó;Áfa kulcs;Egységár;Mennyiség;Egység;Művelet";
+        }
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.listView1.ListViewItemSorter = lvwColumnSorter;
+            this.FormClosing += Form1_FormClosing;
+
+            odt.Multiselect = false;
+            odt.Filter = "Pontosvesszővel tagolt fájlok (*.csv)|*.csv|Text fájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*";
+
+            string[] columns = Form1.columns.Split(';');
+            foreach (string aColumn in columns)
+            {
+                ColumnHeader header = new ColumnHeader();
+                header.Text = aColumn;
+                if (header.Text.Equals("Deviza") || header.Text.Equals("Mennyiség") || header.Text.Equals("Egység"))
+                {
+                    header.Width = 55;
+                }
+                else
+                {
+                    header.Width = 150;
+                }
+
+                listView1.Columns.Add(header);
+                if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") ||
+                    header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum") ||
+                    header.Text.Equals("Elsz. f. szám") || header.Text.Equals("Tétel f. szám") ||
+                    header.Text.Equals("Költséghely") || header.Text.Equals("Pozíciószám") ||
+                    header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény") ||
+                    header.Text.Equals("Dátum") || header.Text.Equals("Könyvelés") ||
+                    header.Text.Equals("Fizetési mód") || header.Text.Equals("Témaszám kód") ||
+                    header.Text.Equals("Témaszám név") || header.Text.Equals("Áfa") ||
+                    header.Text.Equals("Bruttó") || header.Text.Equals("Áfa kulcs") ||
+                    header.Text.Equals("Kézi azonosító"))
+                {
+                    header.Width = 0;
+                }
+            }
+        }
+
+        //DPI
+        [DllImport("user32.dll")]
+        static extern int GetDpiForWindow(IntPtr hWnd);
+
+        public static float GetDisplayScaleFactor(IntPtr windowHandle)
+        {
+            try
+            {
+                return GetDpiForWindow(windowHandle) / 96f;
+            }
+            catch
+            {
+                // Or fallback to GDI solutions above
+                return 1;
+            }
+        }
+        //DPI
+
         //Get foreground window, title
         [DllImport("user32.dll")]
         static extern IntPtr GetForegroundWindow();
@@ -58,12 +136,6 @@ namespace BizBasz
         }
         //Mouse position, click
 
-        private bool nextGroup;
-        static readonly string columns;
-        private static bool mainWindowsClosed;
-        private ListViewColumnSorter lvwColumnSorter;
-        private static bool sortingDisabled;
-
         public static void ChangeTextColorIfTooLong(TextBox tb, int maxlenght)
         {
             if (tb.TextLength > maxlenght)
@@ -76,7 +148,6 @@ namespace BizBasz
             }
         }
 
-        public static bool MainWindowsClosed { get => mainWindowsClosed; set => mainWindowsClosed = value; }
 
         //Universal delegate
         delegate void UniversalVoidDelegate();
@@ -111,55 +182,7 @@ namespace BizBasz
                 listView1.Select();
             });
         }
-
         //Universal delegate
-
-        static Form1()
-        {
-            columns = $"Számlaszám;Kézi azonosító;Ügyfélkód;Ügyfél név;Telephely;Dátum;Teljesítés;Fizetési mód;Esedékes;Könyvelés;Áfa Dátum;Elsz. f. szám;Termék név;Tétel f. szám;Költséghely;Témaszám kód;Témaszám név;Pozíciószám;Deviza;Eladási érték;Engedmény;Nettó;Áfa;Bruttó;Áfa kulcs;Egységár;Mennyiség;Mennyiségi egység;Művelet";
-        }
-
-        public Form1()
-        {
-            InitializeComponent();
-
-            lvwColumnSorter = new ListViewColumnSorter();
-            this.listView1.ListViewItemSorter = lvwColumnSorter;
-            this.FormClosing += Form1_FormClosing;
-
-            odt.Multiselect = false;
-            odt.Filter = "Pontosvesszővel tagolt fájlok (*.csv)|*.csv|Text fájlok (*.txt)|*.txt|Minden fájl (*.*)|*.*";
-
-            string[] columns = Form1.columns.Split(';');
-            foreach (string aColumn in columns)
-            {
-                ColumnHeader header = new ColumnHeader();
-                header.Text = aColumn;
-                if (header.Text.Equals("Deviza") || header.Text.Equals("Mennyiség") || header.Text.Equals("Mennyiségi egység"))
-                {
-                    header.Width = 80;
-                }
-                else
-                {
-                    header.Width = 150;
-                }
-
-                listView1.Columns.Add(header);
-                if (header.Text.Equals("Ügyfélkód") || header.Text.Equals("Telephely") ||
-                    header.Text.Equals("Esedékes") || header.Text.Equals("Áfa Dátum") ||
-                    header.Text.Equals("Elsz. f. szám") || header.Text.Equals("Tétel f. szám") ||
-                    header.Text.Equals("Költséghely") || header.Text.Equals("Pozíciószám") ||
-                    header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény") ||
-                    header.Text.Equals("Dátum") || header.Text.Equals("Könyvelés") ||
-                    header.Text.Equals("Fizetési mód") || header.Text.Equals("Témaszám kód") ||
-                    header.Text.Equals("Témaszám név") || header.Text.Equals("Áfa") ||
-                    header.Text.Equals("Bruttó") || header.Text.Equals("Áfa kulcs") ||
-                    header.Text.Equals("Kézi azonosító"))
-                {
-                    header.Width = 0;
-                }
-            }
-        }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -170,17 +193,15 @@ namespace BizBasz
         {
             new Thread(() =>
             {
-                string line;
-                char[] delimiterChars = { ';' };
-
                 try
                 {
                     System.IO.StreamReader file = new System.IO.StreamReader(odt.FileName, Encoding.GetEncoding(1252));
-                    StringBuilder newFileContent = new StringBuilder();
-
+                    //StringBuilder newFileContent = new StringBuilder();
+                    string line;
+                    char[] delimiterChars = { ';' };
                     string prevInvoiceId = null;
-
                     int counter = 0;
+
                     while ((line = file.ReadLine()) != null)
                     {
                         counter++;
@@ -266,7 +287,6 @@ namespace BizBasz
             }
         }
 
-
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             if (!sortingDisabled)
@@ -311,7 +331,7 @@ namespace BizBasz
                 IntPtr hwnd = GetForegroundWindow();
                 GetWindowRect(hwnd, out rect);
                 //Sorozat lenyitás
-                Cursor.Position = new Point((int)(rect.X + 418), (int)(rect.Y + 191));
+                Cursor.Position = new Point((int)(rect.X + 418 * Dpi), (int)(rect.Y + 191 * Dpi));
                 DoMouseClick();
                 Thread.Sleep(300);
 
@@ -329,7 +349,7 @@ namespace BizBasz
                         y = 52;
                         break;
                 }
-                Cursor.Position = new Point(Cursor.Position.X, Cursor.Position.Y + y);
+                Cursor.Position = new Point((int)(Cursor.Position.X * Dpi), (int)(Cursor.Position.Y + y * Dpi));
                 DoMouseClick();
                 SendKeys.SendWait("{TAB}");
                 SendKeys.SendWait("{TAB}");
@@ -339,24 +359,24 @@ namespace BizBasz
                 SendKeys.SendWait(tbProductName.Text);
                 SendKeys.SendWait("{TAB}");
                 SendKeys.SendWait("{TAB}");
-                //quantity unit
+                //Quantity unit
                 SendKeys.SendWait("db");
                 SendKeys.SendWait("{TAB}");
                 //Groupcode
                 SendKeys.SendWait(cbGroupCode.Text.Substring(0, 3));
                 //Event tab
-                Cursor.Position = new Point((int)(rect.X + 293), (int)(rect.Y + 168));
+                Cursor.Position = new Point((int)(rect.X + 293 * Dpi), (int)(rect.Y + 168 * Dpi));
                 DoMouseClick();
                 Thread.Sleep(300);
                 //More event info
-                Cursor.Position = new Point((int)(rect.X + 293 + 88), (int)(rect.Y + 168));
+                Cursor.Position = new Point((int)(rect.X + 293 + 88 * Dpi), (int)(rect.Y + 168 * Dpi));
                 DoMouseClick();
                 Thread.Sleep(300);
                 //Point to date, select
-                Cursor.Position = new Point((int)(rect.X + 526), (int)(rect.Y + 296));
+                Cursor.Position = new Point((int)(rect.X + 526 * Dpi), (int)(rect.Y + 296 * Dpi));
                 DoMouseClick();
                 DoMouseClick();
-                //Enter compéoance date
+                //Enter compliance date
                 SendKeys.SendWait(tbCompliance.Text);
             }
         }

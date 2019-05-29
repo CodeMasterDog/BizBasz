@@ -50,6 +50,8 @@
             this.cbSerial = new System.Windows.Forms.ComboBox();
             this.lblGroupCode = new System.Windows.Forms.Label();
             this.cbGroupCode = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnOpenFile
@@ -87,13 +89,14 @@
             // 
             // listView1
             // 
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(0, 166);
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1268, 176);
+            this.listView1.Size = new System.Drawing.Size(1278, 136);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -116,7 +119,7 @@
             this.lblCompliance.AutoSize = true;
             this.lblCompliance.Location = new System.Drawing.Point(143, 51);
             this.lblCompliance.Name = "lblCompliance";
-            this.lblCompliance.Size = new System.Drawing.Size(53, 13);
+            this.lblCompliance.Size = new System.Drawing.Size(59, 15);
             this.lblCompliance.TabIndex = 5;
             this.lblCompliance.Text = "Teljesítés";
             // 
@@ -139,7 +142,7 @@
             this.lnlNet.AutoSize = true;
             this.lnlNet.Location = new System.Drawing.Point(246, 51);
             this.lnlNet.Name = "lnlNet";
-            this.lnlNet.Size = new System.Drawing.Size(33, 13);
+            this.lnlNet.Size = new System.Drawing.Size(36, 15);
             this.lnlNet.TabIndex = 7;
             this.lnlNet.Text = "Nettó";
             // 
@@ -156,7 +159,7 @@
             this.lblProductName.AutoSize = true;
             this.lblProductName.Location = new System.Drawing.Point(632, 51);
             this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(64, 13);
+            this.lblProductName.Size = new System.Drawing.Size(71, 15);
             this.lblProductName.TabIndex = 9;
             this.lblProductName.Text = "Termék név";
             // 
@@ -172,7 +175,7 @@
             this.lblCustomerName.AutoSize = true;
             this.lblCustomerName.Location = new System.Drawing.Point(352, 51);
             this.lblCustomerName.Name = "lblCustomerName";
-            this.lblCustomerName.Size = new System.Drawing.Size(58, 13);
+            this.lblCustomerName.Size = new System.Drawing.Size(63, 15);
             this.lblCustomerName.TabIndex = 11;
             this.lblCustomerName.Text = "Ügyfél név";
             // 
@@ -188,7 +191,7 @@
             this.lblInvoiceId.AutoSize = true;
             this.lblInvoiceId.Location = new System.Drawing.Point(12, 51);
             this.lblInvoiceId.Name = "lblInvoiceId";
-            this.lblInvoiceId.Size = new System.Drawing.Size(65, 13);
+            this.lblInvoiceId.Size = new System.Drawing.Size(79, 15);
             this.lblInvoiceId.TabIndex = 13;
             this.lblInvoiceId.Text = "Számlaszám";
             // 
@@ -204,7 +207,7 @@
             this.lblAction.AutoSize = true;
             this.lblAction.Location = new System.Drawing.Point(912, 51);
             this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(45, 13);
+            this.lblAction.Size = new System.Drawing.Size(50, 15);
             this.lblAction.TabIndex = 15;
             this.lblAction.Text = "Művelet";
             // 
@@ -213,7 +216,7 @@
             this.lblserial.AutoSize = true;
             this.lblserial.Location = new System.Drawing.Point(12, 92);
             this.lblserial.Name = "lblserial";
-            this.lblserial.Size = new System.Drawing.Size(43, 13);
+            this.lblserial.Size = new System.Drawing.Size(49, 15);
             this.lblserial.TabIndex = 17;
             this.lblserial.Text = "Sorozat";
             // 
@@ -234,7 +237,7 @@
             this.lblGroupCode.AutoSize = true;
             this.lblGroupCode.Location = new System.Drawing.Point(143, 92);
             this.lblGroupCode.Name = "lblGroupCode";
-            this.lblGroupCode.Size = new System.Drawing.Size(58, 13);
+            this.lblGroupCode.Size = new System.Drawing.Size(65, 15);
             this.lblGroupCode.TabIndex = 19;
             this.lblGroupCode.Text = "Csopotkód";
             // 
@@ -267,11 +270,24 @@
             this.cbGroupCode.Size = new System.Drawing.Size(309, 21);
             this.cbGroupCode.TabIndex = 20;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.listView1);
+            this.panel1.Location = new System.Drawing.Point(12, 137);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1278, 136);
+            this.panel1.TabIndex = 21;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1268, 342);
+            this.ClientSize = new System.Drawing.Size(1302, 285);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblGroupCode);
             this.Controls.Add(this.cbGroupCode);
             this.Controls.Add(this.lblserial);
@@ -289,13 +305,13 @@
             this.Controls.Add(this.tbCompliance);
             this.Controls.Add(this.lblCompliance);
             this.Controls.Add(this.btnNextGroup);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnBizBasz);
             this.Controls.Add(this.tbPath);
             this.Controls.Add(this.btnOpenFile);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,6 +341,7 @@
         private System.Windows.Forms.ComboBox cbSerial;
         private System.Windows.Forms.Label lblGroupCode;
         private System.Windows.Forms.ComboBox cbGroupCode;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

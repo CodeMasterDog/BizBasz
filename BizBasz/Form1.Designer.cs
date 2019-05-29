@@ -57,6 +57,7 @@
             this.lblItemCount = new System.Windows.Forms.Label();
             this.cbAct = new System.Windows.Forms.ComboBox();
             this.lblAct = new System.Windows.Forms.Label();
+            this.lblCsvLine = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -348,11 +349,21 @@
             this.lblAct.TabIndex = 27;
             this.lblAct.Text = "Aktiválás / Ráaktiválás";
             // 
+            // lblCsvLine
+            // 
+            this.lblCsvLine.AutoSize = true;
+            this.lblCsvLine.Location = new System.Drawing.Point(635, 110);
+            this.lblCsvLine.Name = "lblCsvLine";
+            this.lblCsvLine.Size = new System.Drawing.Size(53, 15);
+            this.lblCsvLine.TabIndex = 28;
+            this.lblCsvLine.Text = "csv line: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1302, 285);
+            this.Controls.Add(this.lblCsvLine);
             this.Controls.Add(this.lblAct);
             this.Controls.Add(this.cbAct);
             this.Controls.Add(this.lblItemCount);
@@ -420,6 +431,7 @@
         private System.Windows.Forms.Label lblItemCount;
         private System.Windows.Forms.ComboBox cbAct;
         private System.Windows.Forms.Label lblAct;
+        private System.Windows.Forms.Label lblCsvLine;
     }
 }
 

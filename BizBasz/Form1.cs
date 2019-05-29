@@ -208,6 +208,10 @@ namespace BizBasz
                     while ((line = file.ReadLine()) != null)
                     {
                         counter++;
+                        ControlInvoke(listView1, () =>
+                        {
+                            lblCsvLine.Text = $"csv line: {counter - 2}";
+                        });
                         string[] words = line.Split(delimiterChars);
                         if (words[0].Equals("Számlaszám"))
                         {
@@ -375,7 +379,9 @@ namespace BizBasz
                             break;
                     }
                     Cursor.Position = new Point((int)(Cursor.Position.X * Dpi), (int)(Cursor.Position.Y + y * Dpi));
+                    Thread.Sleep(300);
                     DoMouseClick();
+                    Thread.Sleep(200);
                     SendKeys.SendWait("{TAB}");
                     SendKeys.SendWait("{TAB}");
                     //SendKeys.SendWait(listView1.SelectedItems[0].SubItems[1].Text);

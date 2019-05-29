@@ -324,6 +324,16 @@ namespace BizBasz
             }
             else
             {
+                if ((Double.Parse(tbNet.Text) > 100000 && cbSerial.SelectedIndex == 2) ||
+                   ((Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 0) || (Double.Parse(tbNet.Text) < 100000 && cbSerial.SelectedIndex == 1)))
+                {
+                    DialogResult dialogResult = MessageBox.Show($"Biztos, hogy a sorozat {cbSerial.Text}?", "Kérdés", MessageBoxButtons.YesNo);
+
+                    if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
                 SendKeys.SendWait("%{TAB}");
                 Thread.Sleep(300);
 

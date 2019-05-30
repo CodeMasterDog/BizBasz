@@ -297,13 +297,14 @@ namespace BizBasz
                 tbCustomerName.Text = listView1.SelectedItems[0].SubItems[3].Text;
                 tbInvoiceId.Text = listView1.SelectedItems[0].SubItems[0].Text;
                 tbAction.Text = listView1.SelectedItems[0].SubItems[28].Text;
-                if (listView1.SelectedItems[0].Index > 0)
+
+                if (listView1.SelectedItems[0].Index == 0 && tbAction.Text.Equals("Új"))
                 {
-                    cbAct.SelectedIndex = 1;
+                    cbAct.SelectedIndex = 0;
                 }
                 else
                 {
-                    cbAct.SelectedIndex = 0;
+                    cbAct.SelectedIndex = 1;
                 }
                 changeCounterLabels();   
             }

@@ -20,7 +20,8 @@ namespace BizBasz
         public static bool MainWindowsClosed { get; set; }
         private static bool sortingDisabled;
         private static readonly float Dpi;
-
+        private int lineCounter = 0;
+        private bool eof;
         private bool nextGroup;
         private ListViewColumnSorter lvwColumnSorter;
 
@@ -171,6 +172,7 @@ namespace BizBasz
         {
             ControlInvoke(listView1, () =>
             {
+                listView1.Select();
                 ListViewItem lvi = new ListViewItem(words[0]);
                 for (int i = 1; i < words.Length; i++)
                 {
@@ -181,8 +183,7 @@ namespace BizBasz
                 {
                     listView1.Items[0].Selected = true;
                 }
-                listView1.Select();
-                changelblItemCount();
+                changeCounterLabels();
             });
         }
         //Universal delegate
@@ -208,10 +209,7 @@ namespace BizBasz
                     while ((line = file.ReadLine()) != null)
                     {
                         counter++;
-                        ControlInvoke(listView1, () =>
-                        {
-                            lblCsvLine.Text = $"csv line: {counter - 2}";
-                        });
+                        
                         string[] words = line.Split(delimiterChars);
                         if (words[0].Equals("Számlaszám"))
                         {
@@ -221,7 +219,7 @@ namespace BizBasz
                         {
                             prevInvoiceId = words[0];
                         }
-
+                        //lineCounter++;
                         if (prevInvoiceId.Equals(words[0]))
                         {
                             readGropuInfoFromFile(words);
@@ -245,6 +243,7 @@ namespace BizBasz
                             }
                         }
                     }
+                    eof = true;
                 }
                 catch (Exception ex)
                 {
@@ -266,6 +265,13 @@ namespace BizBasz
 
         private void btnNextGroup_Click(object sender, EventArgs e)
         {
+            if (eof)
+            {
+                lblCsvLine.Text = "End of file";
+                lblItemCount. Text = "End of file";
+            }
+            lineCounter += listView1.Items.Count;
+
             listView1.Items.Clear();
             nextGroup = true;
         }
@@ -299,8 +305,9 @@ namespace BizBasz
                 {
                     cbAct.SelectedIndex = 0;
                 }
+                changeCounterLabels();   
             }
-            changelblItemCount();
+
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -559,7 +566,7 @@ namespace BizBasz
             {
                 if (!File.Exists(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName)))
                 {
-                    using (StreamWriter sw = new StreamWriter(File.Open(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName), FileMode.Create), Encoding.UTF8)) ;
+                    using (StreamWriter sw = new StreamWriter(File.Open(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName), FileMode.Create), Encoding.UTF8));
                 }
                 using (StreamWriter sw = File.AppendText(Path.Combine(Application.StartupPath, "Log_" + odt.SafeFileName)))
                 {
@@ -587,17 +594,17 @@ namespace BizBasz
 
         }
 
-        private void changelblItemCount()
+        private void changeCounterLabels()
         {
             if (listView1.SelectedItems.Count > 0)
             {
-                lblItemCount.Text = "Items: " + listView1.Items.Count.ToString() + " Selected item idx: " + listView1.SelectedItems[0].Index;
+                lblItemCount.Text = $"Items: {listView1.Items.Count}, selected item's index: { listView1.SelectedItems[0].Index}";
+                lblCsvLine.Text = $"csv line: {lineCounter + listView1.SelectedItems[0].Index+1}";
             }
             else
             {
                 lblItemCount.Text = "0";
             }
-
         }
     }
 }

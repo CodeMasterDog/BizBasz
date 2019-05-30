@@ -323,11 +323,11 @@
             // lblItemCount
             // 
             this.lblItemCount.AutoSize = true;
-            this.lblItemCount.Location = new System.Drawing.Point(912, 119);
+            this.lblItemCount.Location = new System.Drawing.Point(738, 116);
             this.lblItemCount.Name = "lblItemCount";
-            this.lblItemCount.Size = new System.Drawing.Size(41, 15);
+            this.lblItemCount.Size = new System.Drawing.Size(204, 15);
             this.lblItemCount.TabIndex = 25;
-            this.lblItemCount.Text = "label1";
+            this.lblItemCount.Text = "Items: n/a, selected item\'s index: n/a";
             // 
             // cbAct
             // 
@@ -352,11 +352,11 @@
             // lblCsvLine
             // 
             this.lblCsvLine.AutoSize = true;
-            this.lblCsvLine.Location = new System.Drawing.Point(635, 110);
+            this.lblCsvLine.Location = new System.Drawing.Point(632, 116);
             this.lblCsvLine.Name = "lblCsvLine";
-            this.lblCsvLine.Size = new System.Drawing.Size(53, 15);
+            this.lblCsvLine.Size = new System.Drawing.Size(70, 15);
             this.lblCsvLine.TabIndex = 28;
-            this.lblCsvLine.Text = "csv line: ";
+            this.lblCsvLine.Text = "csv line: n/a";
             // 
             // Form1
             // 

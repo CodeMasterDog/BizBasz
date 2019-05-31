@@ -11,6 +11,7 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Timers;
 using System.IO;
+using System.Collections;
 
 namespace BizBasz
 {
@@ -24,6 +25,7 @@ namespace BizBasz
         private bool eof;
         private bool nextGroup;
         private ListViewColumnSorter lvwColumnSorter;
+        private Dictionary<string, string> themes;
 
         static Form1()
         {
@@ -39,6 +41,7 @@ namespace BizBasz
         {
             InitializeComponent();
 
+            themes = new Dictionary<string, string>();
             lvwColumnSorter = new ListViewColumnSorter();
             this.listView1.ListViewItemSorter = lvwColumnSorter;
             this.FormClosing += Form1_FormClosing;
@@ -68,7 +71,7 @@ namespace BizBasz
                     header.Text.Equals("Eladási érték") || header.Text.Equals("Engedmény") ||
                     header.Text.Equals("Dátum") || header.Text.Equals("Könyvelés") ||
                     header.Text.Equals("Fizetési mód") || header.Text.Equals("Témaszám kód") ||
-                    header.Text.Equals("Témaszám név") || header.Text.Equals("Áfa") ||
+                    /*header.Text.Equals("Témaszám név") ||*/ header.Text.Equals("Áfa") ||
                     header.Text.Equals("Bruttó") || header.Text.Equals("Áfa kulcs") ||
                     header.Text.Equals("Kézi azonosító"))
                 {
@@ -181,7 +184,7 @@ namespace BizBasz
                 listView1.Items.Add(lvi);
                 if (listView1.Items.Count > 0)
                 {
-                    listView1.Items[0].Selected = true;
+                    //listView1.Items[0].Selected = true;
                 }
                 changeCounterLabels();
             });
@@ -219,7 +222,7 @@ namespace BizBasz
                         {
                             prevInvoiceId = words[0];
                         }
-                        //lineCounter++;
+                        
                         if (prevInvoiceId.Equals(words[0]))
                         {
                             readGropuInfoFromFile(words);
@@ -273,6 +276,9 @@ namespace BizBasz
             lineCounter += listView1.Items.Count;
 
             listView1.Items.Clear();
+            tbThemeId.Text = string.Empty;
+            lblRepeatingTheme.Text = string.Empty;
+            tbThemeEquipment.Text = string.Empty;
             nextGroup = true;
         }
 
@@ -297,6 +303,7 @@ namespace BizBasz
                 tbCustomerName.Text = listView1.SelectedItems[0].SubItems[3].Text;
                 tbInvoiceId.Text = listView1.SelectedItems[0].SubItems[0].Text;
                 tbAction.Text = listView1.SelectedItems[0].SubItems[28].Text;
+                tbThemeId.Text = $"{listView1.SelectedItems[0].SubItems[15].Text} - {listView1.SelectedItems[0].SubItems[16].Text}";
 
                 if (listView1.SelectedItems[0].Index == 0 && tbAction.Text.Equals("Új"))
                 {
@@ -306,7 +313,30 @@ namespace BizBasz
                 {
                     cbAct.SelectedIndex = 1;
                 }
-                changeCounterLabels();   
+                changeCounterLabels();
+
+                string themeKey = listView1.SelectedItems[0].SubItems[15].Text;
+                if (!string.IsNullOrWhiteSpace(themeKey))
+                {
+                    if (themes.Keys.Contains(themeKey))
+                    {
+                        string tmp = "";
+                        lblRepeatingTheme.Text = "Már szerepelt ez a téma";
+                        themes.TryGetValue(themeKey, out tmp);
+                        tbThemeEquipment.Text = tmp;
+                    }
+                    else
+                    {
+                        lblRepeatingTheme.Text = string.Empty;
+                        tbThemeEquipment.Text = string.Empty;
+                    }
+                }
+            }
+            else
+            {
+                lblRepeatingTheme.Text = string.Empty;
+                tbThemeEquipment.Text = string.Empty;
+                tbThemeId.Text = string.Empty;
             }
 
         }
@@ -605,6 +635,15 @@ namespace BizBasz
             else
             {
                 lblItemCount.Text = "0";
+            }
+        }
+
+        private void btnSaveAquipment_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                string themeKey = listView1.SelectedItems[0].SubItems[15].Text;
+                themes.Add(themeKey, tbThemeEquipment.Text);
             }
         }
     }

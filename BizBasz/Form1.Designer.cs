@@ -58,6 +58,13 @@
             this.cbAct = new System.Windows.Forms.ComboBox();
             this.lblAct = new System.Windows.Forms.Label();
             this.lblCsvLine = new System.Windows.Forms.Label();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.tbThemeId = new System.Windows.Forms.TextBox();
+            this.lblThemeId = new System.Windows.Forms.Label();
+            this.lblRepeatingTheme = new System.Windows.Forms.Label();
+            this.lblThemeName = new System.Windows.Forms.Label();
+            this.tbThemeEquipment = new System.Windows.Forms.TextBox();
+            this.btnSaveAquipment = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -301,7 +308,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1030, 108);
+            this.button1.Location = new System.Drawing.Point(1134, -2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 23;
@@ -323,7 +330,7 @@
             // lblItemCount
             // 
             this.lblItemCount.AutoSize = true;
-            this.lblItemCount.Location = new System.Drawing.Point(738, 116);
+            this.lblItemCount.Location = new System.Drawing.Point(1086, 32);
             this.lblItemCount.Name = "lblItemCount";
             this.lblItemCount.Size = new System.Drawing.Size(204, 15);
             this.lblItemCount.TabIndex = 25;
@@ -352,17 +359,86 @@
             // lblCsvLine
             // 
             this.lblCsvLine.AutoSize = true;
-            this.lblCsvLine.Location = new System.Drawing.Point(632, 116);
+            this.lblCsvLine.Location = new System.Drawing.Point(1086, 17);
             this.lblCsvLine.Name = "lblCsvLine";
             this.lblCsvLine.Size = new System.Drawing.Size(70, 15);
             this.lblCsvLine.TabIndex = 28;
             this.lblCsvLine.Text = "csv line: n/a";
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(1215, -2);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.TabIndex = 29;
+            this.btnPrevious.Text = "Next";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Visible = false;
+            // 
+            // tbThemeId
+            // 
+            this.tbThemeId.Location = new System.Drawing.Point(638, 110);
+            this.tbThemeId.Name = "tbThemeId";
+            this.tbThemeId.Size = new System.Drawing.Size(200, 20);
+            this.tbThemeId.TabIndex = 31;
+            // 
+            // lblThemeId
+            // 
+            this.lblThemeId.AutoSize = true;
+            this.lblThemeId.Location = new System.Drawing.Point(635, 92);
+            this.lblThemeId.Name = "lblThemeId";
+            this.lblThemeId.Size = new System.Drawing.Size(62, 15);
+            this.lblThemeId.TabIndex = 30;
+            this.lblThemeId.Text = "Téma kód";
+            // 
+            // lblRepeatingTheme
+            // 
+            this.lblRepeatingTheme.AutoSize = true;
+            this.lblRepeatingTheme.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.18868F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblRepeatingTheme.ForeColor = System.Drawing.Color.Red;
+            this.lblRepeatingTheme.Location = new System.Drawing.Point(999, 110);
+            this.lblRepeatingTheme.Name = "lblRepeatingTheme";
+            this.lblRepeatingTheme.Size = new System.Drawing.Size(0, 20);
+            this.lblRepeatingTheme.TabIndex = 32;
+            // 
+            // lblThemeName
+            // 
+            this.lblThemeName.AutoSize = true;
+            this.lblThemeName.Location = new System.Drawing.Point(844, 92);
+            this.lblThemeName.Name = "lblThemeName";
+            this.lblThemeName.Size = new System.Drawing.Size(119, 15);
+            this.lblThemeName.TabIndex = 33;
+            this.lblThemeName.Text = "Témához rend. Eszk";
+            // 
+            // tbThemeEquipment
+            // 
+            this.tbThemeEquipment.Location = new System.Drawing.Point(844, 109);
+            this.tbThemeEquipment.Name = "tbThemeEquipment";
+            this.tbThemeEquipment.Size = new System.Drawing.Size(118, 20);
+            this.tbThemeEquipment.TabIndex = 34;
+            // 
+            // btnSaveAquipment
+            // 
+            this.btnSaveAquipment.Location = new System.Drawing.Point(968, 106);
+            this.btnSaveAquipment.Name = "btnSaveAquipment";
+            this.btnSaveAquipment.Size = new System.Drawing.Size(25, 23);
+            this.btnSaveAquipment.TabIndex = 35;
+            this.btnSaveAquipment.Text = "+";
+            this.btnSaveAquipment.UseVisualStyleBackColor = true;
+            this.btnSaveAquipment.Click += new System.EventHandler(this.btnSaveAquipment_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1302, 285);
+            this.Controls.Add(this.btnSaveAquipment);
+            this.Controls.Add(this.tbThemeEquipment);
+            this.Controls.Add(this.lblThemeName);
+            this.Controls.Add(this.lblRepeatingTheme);
+            this.Controls.Add(this.tbThemeId);
+            this.Controls.Add(this.lblThemeId);
+            this.Controls.Add(this.btnPrevious);
             this.Controls.Add(this.lblCsvLine);
             this.Controls.Add(this.lblAct);
             this.Controls.Add(this.cbAct);
@@ -432,6 +508,13 @@
         private System.Windows.Forms.ComboBox cbAct;
         private System.Windows.Forms.Label lblAct;
         private System.Windows.Forms.Label lblCsvLine;
+        private System.Windows.Forms.Button btnPrevious;
+        private System.Windows.Forms.TextBox tbThemeId;
+        private System.Windows.Forms.Label lblThemeId;
+        private System.Windows.Forms.Label lblRepeatingTheme;
+        private System.Windows.Forms.Label lblThemeName;
+        private System.Windows.Forms.TextBox tbThemeEquipment;
+        private System.Windows.Forms.Button btnSaveAquipment;
     }
 }
 
